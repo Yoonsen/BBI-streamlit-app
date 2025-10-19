@@ -12,7 +12,7 @@ st.title("Mangfold og barnebøker")
 st.write('---')
 
 @st.cache_data()
-def korpus():
+def get_korpus():
     kudos = pd.read_csv("kudos_ext.csv").fillna('').drop_duplicates().fillna('').set_index('dhlabid').reset_index()
     barn = pd.read_csv("barn.csv").fillna('').drop_duplicates().fillna('').set_index('dhlabid').reset_index()
     barn.year = barn.year.replace('', np.nan)
@@ -26,18 +26,24 @@ def korpus():
     
     return kudos.dropna(), barn.dropna()
 
-kudos, barn = korpus()
+
+st.session_state.setdefault("corpus_name", "barn")
+st.session_state.setdefault("korpus", {})  # dict av år→DF
+
+kudos, barn = get_korpus()
+
 #st.write(len(kudos), len(barn))
+
 splits = [1945, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020, 2030]
+
 groups = [splits[a:a+2] for a in range(len(splits)-1)]
+
 make_splits = lambda df: {f"{str(x[0])}-{str(x[1])}": df.loc[df.year >= x[0]].loc[df.year < x[1]] for x in groups}
     
 barn_år = make_splits(barn)
 kudos_år = make_splits(kudos)
 
 corpus_col, year_col, _ = st.columns([2,5,3])
-#if "corpus_name" not in st.session_state:
-#    st.session_state.corpus_name = 'barn'
 
 choices = ['kudos', 'barn']
 with corpus_col:
