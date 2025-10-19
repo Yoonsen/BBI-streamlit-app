@@ -1,0 +1,92 @@
+# --- Python generelt ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+.eggs/
+build/
+dist/
+pip-wheel-metadata/
+*.manifest
+*.spec
+
+# --- Virtuelle miljøer ---
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# --- Jupyter ---
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+*.nbconvert.ipynb
+.profile_default/
+ipython_config.py
+
+# --- Streamlit ---
+.streamlit/secrets.toml
+.streamlit/config.toml
+.streamlit/logs/
+.streamlit/cache/
+.streamlit/static/
+.streamlit/uploads/
+
+# --- OS og editorer ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# --- Data og mellomfiler ---
+data/
+tmp/
+temp/
+logs/
+*.log
+*.sqlite
+*.db
+*.csv
+*.xlsx
+*.json
+*.tsv
+*.zip
+*.gz
+*.pkl
+*.h5
+*.bak
+*.old
+
+# --- Notebooks eksport og analyser ---
+*.html
+*.pdf
+*.png
+*.svg
+*.jpg
+*.jpeg
+
+# --- Pytest, coverage, profiler ---
+.pytest_cache/
+.coverage
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# --- Docker og CI ---
+*.pid
+*.out
+*.err
+docker-compose.override.yml
+
+# --- uv ---
+.uv/
+uv.lock
