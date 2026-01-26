@@ -1,11 +1,13 @@
 [project]
 name = "bbi-streamlit-app"
 version = "0.1.0"
-requires-python = ">=3.10,<4.0"   # <- viktig endring
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10,<4.0"
+
 dependencies = [
-    "dhlab>=2.42.1,<3.0.0",        # her kan du godt ha <3.0
-    "matplotlib>=3.10.7",
-    "numpy>=2.3.4",
-    "pandas>=2.3.3",
-    "streamlit>=1.50.0",
+    "dhlab>=2.42.1,<3.0.0",
+    "matplotlib",          # ingen hard versjon
+    "pandas",
+    "streamlit>=1.50.0",   # ny nok streamlit til å leke fint med Altair 6
 ]
