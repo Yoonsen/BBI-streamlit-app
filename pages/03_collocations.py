@@ -69,7 +69,7 @@ def koll(corpus = None, words = None, before = 5, after = 5, reference = None):
 def reference_corpus():
     return dh.totals(500000)
 
-st.title('Kollokasjoner')
+st.title('Kollokasjoner fra korpuset "{st.session_state.corpus_name}" med {len(st.session_state.korpus)} dokumenter')
 st.markdown("Bygg kollokasjoner for en eller flere ord - her er ordene tolket som de skrives, det gjøres forskjell på stor og liten bokstav")
 
 reference = reference_corpus()
