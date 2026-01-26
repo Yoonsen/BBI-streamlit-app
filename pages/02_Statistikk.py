@@ -20,7 +20,7 @@ corpus = st.session_state['korpus']
 corpus = corpus.drop_duplicates(subset="dhlabid", keep="first").copy()
 corpus["dhlabid"] = corpus["dhlabid"].astype(str)
 
-st.title('Oversikt over korpuset "{st.session_state.corpus_name}" med {len(st.session_state.korpus)} dokumenter')
+st.title(f'Oversikt over korpuset {st.session_state.corpus_name} med {len(st.session_state.korpus)} dokumenter')
 
 col1, col2, col3, _ = st.columns([2, 2, 3, 5])
 
