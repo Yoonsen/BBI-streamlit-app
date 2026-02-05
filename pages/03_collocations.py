@@ -57,7 +57,6 @@ def to_excel(df):
 
 
 
-@st.cache_data()
 def koll(corpus = None, words = None, before = 5, after = 5, reference = None): 
     coll = colloc(corpus, words, before = before, after = after, reference = reference)
     return coll.sort_values(by="relevance", ascending = False)
