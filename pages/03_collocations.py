@@ -1,5 +1,3 @@
-
-
 import streamlit as st
 import dhlab as dh
 import dhlab.text as dt
@@ -16,7 +14,7 @@ st.session_state.update(st.session_state)
 from dhlab.api.dhlab_api import urn_collocation
 
 
-def colloc(corp, words=['working'], before=5, after = 5, reference=None, alpha = False, samplesize= 5000):
+def colloc(corp, words=['working'], before=5, after = 5, reference=None, alpha = False, samplesize= 50000):
     
     coll = pd.concat(
             [
@@ -88,22 +86,45 @@ with colfilnavn:
 ## Process file
 colw, colbefore, colafter, colcounts = st.columns([3,1,1,1])
 with colw:
-    words = st.text_input('Søkeuttrykk', st.session_state.get('coll_search', ''), key='coll_search', help="Søk etter hele ord skilt med mellomrom - kapitaliseringssensitiv ")
+    words = st.text_input(
+        'Søkeuttrykk',
+        st.session_state.get('coll_search', ''),
+        key='coll_search',
+        help="Søk etter ord, separert med mellomrom eller komma – kapitaliseringssensitiv"
+    )
 with colbefore:
-    before = st.number_input("Before", min_value=0, max_value=50, value=5)
+    before = st.number_input(
+        "Before",
+        min_value=0,
+        max_value=50,
+        value=st.session_state.get("coll_before", 5),
+        key="coll_before",
+    )
 with colafter:
-    after = st.number_input("After", min_value=0, max_value=50, value=5)
+    after = st.number_input(
+        "After",
+        min_value=0,
+        max_value=50,
+        value=st.session_state.get("coll_after", 5),
+        key="coll_after",
+    )
 
 with colcounts:
     countlim = st.number_input("Minste antall forekomster", 3)
+
 if words != "":
     st.write(f"Kollokasjoner for {st.session_state.corpus_name}")
-    words = words.split()
-    kollok = koll(st.session_state.korpus, words, before = before, after=after, reference = reference.freq  )
-    #st.dataframe(konks)
+    # støtte for både komma og mellomrom som separator
+    words_list = [w.strip() for w in re.split(r'[,\s]+', words) if w.strip()]
+    kollok = koll(
+        st.session_state.korpus,
+        words_list,
+        before = before,
+        after = after,
+        reference = reference.freq
+    )
     
     st.dataframe(kollok[kollok['counts'] >= countlim])
                          
     if st.download_button(f'Laste ned 500 topp til {filnavn}', to_excel(kollok.head(500).reset_index()), filnavn, help = "Åpnes i Excel eller tilsvarende"):
-        pass            
-                
+        pass
